@@ -1,0 +1,19 @@
+before_script:
+    - python --version
+    - pip install -r requirements.txt
+stages:
+    - Static Analysis
+    - Test
+pylint:
+    stage: Static Analysis
+    tags:
+        - pyci
+    script:
+        - pylint --fail-under=8 $(git ls-files 'src/*.py')
+
+pytest:
+    stage: Test
+    tags:
+        - pyci
+    script:
+        - pytest
